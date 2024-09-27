@@ -1,0 +1,117 @@
+,region,timezone
+0,Chelyabinsk,Asia/Yekaterinburg
+1,Bashkortostan Republic,Asia/Yekaterinburg
+2,St.-Petersburg,Europe/Moscow
+3,Moscow,Europe/Moscow
+4,Rostov,Europe/Moscow
+5,Moscow Oblast,Europe/Moscow
+6,Kursk Oblast,Europe/Moscow
+7,Kemerovo Oblast,Asia/Novokuznetsk
+8,Arkhangelskaya,Europe/Moscow
+9,Tomsk Oblast,Asia/Tomsk
+10,Novosibirsk Oblast,Asia/Novosibirsk
+11,Sverdlovsk Oblast,Asia/Yekaterinburg
+12,Leningradskaya Oblast',Europe/Moscow
+13,Krasnodar Krai,Europe/Moscow
+14,Tatarstan Republic,Europe/Moscow
+15,Belgorod Oblast,Europe/Moscow
+16,Kuzbass,Asia/Novokuznetsk
+17,Udmurtiya Republic,Etc/GMT+4
+18,Chuvashia,Europe/Moscow
+19,Ryazan Oblast,Europe/Moscow
+20,Perm Krai,Asia/Yekaterinburg
+21,Sakha,Asia/Yakutsk
+22,Orenburg Oblast,Asia/Yekaterinburg
+23,Primorye,Asia/Vladivostok
+24,Zabaykalskiy (Transbaikal) Kray,Asia/Chita
+25,Bryansk Oblast,Europe/Moscow
+26,Tver Oblast,Europe/Moscow
+27,Stavropol Kray,Europe/Moscow
+28,Khabarovsk,Asia/Vladivostok
+29,Penza Oblast,Europe/Moscow
+30,Mariy-El Republic,Europe/Moscow
+31,Smolensk Oblast,Europe/Moscow
+32,Tambov Oblast,Europe/Moscow
+33,Novgorod Oblast,Europe/Moscow
+34,Khakasiya Republic,Etc/GMT+7
+35,Ulyanovsk,Europe/Ulyanovsk
+36,Volgograd Oblast,Europe/Volgograd
+37,Irkutsk Oblast,Asia/Irkutsk
+38,Komi,Europe/Moscow
+39,Nizhny Novgorod Oblast,Europe/Moscow
+40,Krasnoyarsk Krai,Asia/Krasnoyarsk
+41,Kurgan Oblast,Asia/Yekaterinburg
+42,Kirov Oblast,Europe/Kirov
+43,Omsk Oblast,Asia/Omsk
+44,Vladimir Oblast,Europe/Moscow
+45,Yaroslavl Oblast,Europe/Moscow
+46,Saratov Oblast,Europe/Saratov
+47,Khanty-Mansia,Asia/Yekaterinburg
+48,Tula Oblast,Europe/Moscow
+49,Amur Oblast,Asia/Yakutsk
+50,Altay Kray,Asia/Barnaul
+51,Buryatiya Republic,Asia/Irkutsk
+52,Dagestan,Europe/Moscow
+53,Kaluga Oblast,Europe/Moscow
+54,Kaliningrad Oblast,Europe/Kaliningrad
+55,Murmansk,Europe/Moscow
+56,Samara Oblast,Europe/Samara
+57,Stavropol’ Kray,Europe/Moscow
+58,Voronezh Oblast,Europe/Moscow
+59,Kursk,Europe/Moscow
+60,Sverdlovsk,Asia/Yekaterinburg
+61,Karelia,Europe/Moscow
+62,Lipetsk Oblast,Europe/Moscow
+63,Adygeya Republic,Europe/Moscow
+64,Ivanovo Oblast,Europe/Moscow
+65,Oryol oblast,Europe/Moscow
+66,Tula,Europe/Moscow
+67,Kamchatka,Asia/Kamchatka
+68,Tyumen Oblast,Asia/Yekaterinburg
+69,Krasnodarskiy,Europe/Moscow
+70,Krasnoyarskiy,Asia/Yekaterinburg
+71,Pskov Oblast,Europe/Moscow
+72,Crimea,Europe/Simferopol
+73,Chechnya,Europe/Moscow
+74,Saratovskaya Oblast,Etc/GMT+4
+75,Kalmykiya Republic,Etc/GMT+3
+76,North Ossetia–Alania,Europe/Moscow
+77,Vologda Oblast,Europe/Moscow
+78,Karachayevo-Cherkesiya Republic,Etc/GMT+3
+79,Voronezj,Europe/Moscow
+80,Chukotka,Asia/Anadyr
+81,Mordoviya Republic,Etc/GMT+3
+82,Kostroma Oblast,Europe/Moscow
+83,Yamalo-Nenets,Asia/Yekaterinburg
+84,Magadan Oblast,Asia/Magadan
+85,Altai,Asia/Barnaul
+86,Vladimir,Europe/Moscow
+87,Ivanovo,Europe/Moscow
+88,Astrakhan Oblast,Europe/Astrakhan
+89,Penza,Europe/Moscow
+90,Kabardino-Balkariya Republic,Europe/Moscow
+91,Jaroslavl,Europe/Moscow
+92,Sakhalin Oblast,Asia/Sakhalin
+93,Sebastopol City,Etc/GMT+3
+94,Tyumen’ Oblast,Asia/Yekaterinburg
+95,Kirov,Europe/Kirov
+96,Orel Oblast,Europe/Moscow
+97,Omsk,Asia/Omsk
+98,Smolenskaya Oblast’,Europe/Moscow
+99,Nenets,Asia/Yekaterinburg
+100,Tver’ Oblast,Europe/Moscow
+101,Jewish Autonomous Oblast,Asia/Vladivostok
+102,Ingushetiya Republic,Etc/GMT+3
+103,Kaluga,Europe/Moscow
+104,Kaliningrad,Europe/Kaliningrad
+105,North Ossetia,Europe/Moscow
+106,Perm,Asia/Yekaterinburg
+107,Smolensk,Europe/Moscow
+108,Primorskiy (Maritime) Kray,Etc/GMT+10
+109,Vologda,Europe/Moscow
+110,Stavropol Krai,Europe/Moscow
+111,Astrakhan,Europe/Astrakhan
+112,Transbaikal Territory,Etc/GMT+9
+113,Tambov,Europe/Moscow
+114,Tyva Republic,Asia/Krasnoyarsk
+115,Arkhangelsk Oblast,Europe/Moscow
