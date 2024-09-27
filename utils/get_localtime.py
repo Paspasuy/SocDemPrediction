@@ -1,9 +1,11 @@
+from pathlib import Path
+
 import pandas as pd
 import pytz
-from datetime import datetime
 
+path = Path(__file__).parent.absolute()
 
-_reg_to_tz = pd.read_csv("regions_result.csv")
+_reg_to_tz = pd.read_csv(path / 'regions_result.csv')
 _timezones = {tz: pytz.timezone(tz) for tz in _reg_to_tz['timezone']}
 
 # Функция для преобразования UTC времени в местное с учетом таймзоны

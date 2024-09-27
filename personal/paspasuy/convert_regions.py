@@ -1,12 +1,13 @@
 # Скрипт, который использовался для создания маппинга reginos_result.csv: Название региона -> таймзона.
+from pathlib import Path
 
 from timezonefinder import TimezoneFinder
 from geopy.geocoders import Nominatim
 import time
 import pandas as pd
 
-path = "./"
-regions_df = pd.read_csv(path + 'regions.csv')
+path = Path(__file__).parent.absolute()
+regions_df = pd.read_csv(path / 'regions.csv')
 
 # Инициализация необходимых инструментов
 tf = TimezoneFinder()
