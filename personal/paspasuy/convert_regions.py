@@ -1,3 +1,5 @@
+# Скрипт, который использовался для создания маппинга reginos_result.csv: Название региона -> таймзона.
+
 from timezonefinder import TimezoneFinder
 from geopy.geocoders import Nominatim
 import time
