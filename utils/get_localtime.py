@@ -10,7 +10,7 @@ _timezones = {tz: pytz.timezone(tz) for tz in _reg_to_tz['timezone']}
 
 # Функция для преобразования UTC времени в местное с учетом таймзоны
 def _convert_to_local_time(row):
-    return row['event_timestamp'].astimezone(_timezones[row['timezone']])
+    return row['event_timestamp'].astimezone(_timezones[row['timezone']]).replace(tzinfo=None)
 
 
 def add_tz_and_localtime_column(df):
@@ -19,4 +19,6 @@ def add_tz_and_localtime_column(df):
     df['event_timestamp'] = pd.to_datetime(df['event_timestamp'])
 
     df['local_time'] = df.apply(_convert_to_local_time, axis=1)
+    df['local_time'] = pd.to_datetime(df["local_time"], utc=True)
+
     return df
