@@ -9,3 +9,5 @@ from utils.extractors.main_extractor import MainFeatureExtractor
 from utils.extractors.geo_extractor import GeoFeatureExtractor
 
 from utils.extractors.user_extractor import UserFeatureExtractor
+
+from utils.text_cleaner import preprocess_text
