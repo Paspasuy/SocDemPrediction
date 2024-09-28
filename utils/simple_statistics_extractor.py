@@ -27,35 +27,49 @@ class SimpleStatisticsExtractor:
         features = features.copy()
         events = events.copy()
         
+        print('Applying SimpleStatisticsExtractor...')
+                      
         total_views = events.groupby('viewer_uid').size().reset_index(name='total_views')
         features = features.merge(total_views, on='viewer_uid', how='left')
         
-        total_watchtime = events.groupby('viewer_uid')['total_watchtime'].agg(['mean', 'max', 'min', 'std', 'sum']).reset_index()
+        total_watchtime = events.groupby('viewer_uid')['total_watchtime'].agg(['mean', 'max', 'min', 'std', 'sum'])
+        total_watchtime.columns = [f'total_watchtime_{col}' for col in total_watchtime.columns]
         features = features.merge(total_watchtime, on='viewer_uid', how='left')
         
         events['percent_watched'] = events['total_watchtime'] / events['duration'] * 1000
-        percent_watched = events.groupby('viewer_uid')['percent_watched'].agg(['mean', 'max', 'min', 'std']).reset_index()
+        percent_watched = events.groupby('viewer_uid')['percent_watched'].agg(['mean', 'max', 'min', 'std'])
+        percent_watched.columns = [f'percent_watched_{col}' for col in percent_watched.columns]
         features = features.merge(percent_watched, on='viewer_uid', how='left')
         
-        duration = events.groupby('viewer_uid')['duration'].agg(['mean', 'max', 'min', 'std']).reset_index()
+        duration = events.groupby('viewer_uid')['duration'].agg(['mean', 'max', 'min', 'std'])
+        duration.columns = [f'duration_{col}' for col in duration.columns]
         features = features.merge(duration, on='viewer_uid', how='left')
         
         events['hour'] = events['local_time'].dt.hour
         events['day'] = events['local_time'].dt.weekday
         for i in range(24):
-            hour_i = events[events['hour'] == i].groupby('viewer_uid')['total_watchtime'].transform('sum')
-            features[f'hour_{i}'] = hour_i / events.groupby('viewer_uid')['total_watchtime'].transform('sum')
+            hour_i = events[events['hour'] == i].groupby('viewer_uid')['total_watchtime'].sum()
+            hour_i = hour_i / events.groupby('viewer_uid')['total_watchtime'].sum()
+            hour_i.name = f'hour_{i}'
+            features = features.merge(hour_i, on='viewer_uid', how='left')
         for i in range(7):
-            day_i = events[events['day'] == i].groupby('viewer_uid')['total_watchtime'].transform('sum')
-            features[f'day_{i}'] = day_i / events.groupby('viewer_uid')['total_watchtime'].transform('sum')
-        
-        category_viewtime = events.groupby(['viewer_uid', 'category'])['total_watchtime'].transform('sum')
+            day_i = events[events['day'] == i].groupby('viewer_uid')['total_watchtime'].sum()
+            day_i = day_i / events.groupby('viewer_uid')['total_watchtime'].sum()
+            day_i.name = f'day_{i}'
+            features = features.merge(day_i, on='viewer_uid', how='left')
+                
+        category_viewtime = events.groupby(['viewer_uid', 'category'])['total_watchtime'].sum()
         category_views = events.groupby(['viewer_uid', 'category']).size()
-        category_viewtime = category_viewtime / events.groupby('viewer_uid')['total_watchtime'].transform('sum')
+        category_viewtime = category_viewtime / events.groupby('viewer_uid')['total_watchtime'].sum()
         category_views = category_views / events.groupby('viewer_uid').size()
         for category in events['category'].unique():
-            features[f'category_{category}_viewtime'] = category_viewtime[events['category'] == category]
-            features[f'category_{category}_views'] = category_views[events['category'] == category]
+            viewtime = category_viewtime.xs(category, level='category')
+            viewtime.name = f'category_{category}_viewtime'
+            views = category_views.xs(category, level='category')
+            views.name = f'category_{category}_views'
+            features = features.merge(viewtime, on='viewer_uid', how='left').fillna(0)
+            features = features.merge(views, on='viewer_uid', how='left').fillna(0)
+            
             
         return events, features
         
@@ -64,13 +78,3 @@ class SimpleStatisticsExtractor:
         self.fit()
         return self.transform(events, features)
     
-    
-if __name__ == '__main__':
-    events = pd.read_csv('data/train_events.csv')
-    video = pd.read_csv('data/video_info_v2.csv')
-    events = events.merge(video, on='rutube_video_id', how='left')
-    targets = pd.read_csv('data/train_targets.csv')
-    
-    extractor = SimpleStatisticsExtractor()
-    events, features = extractor.fit_transform(events, targets)
-    print(features.head())
