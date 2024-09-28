@@ -35,6 +35,10 @@ class GeoFeatureExtractor:
         features = pd.merge(new_features, features, on='viewer_uid', how='inner')
         features = pd.merge(viewer_to_count, features, on='viewer_uid', how='right')
 
+        region_counts = features['region'].value_counts()
+        top_30_regions = region_counts.nlargest(30).index
+        features['region'] = features['region'].where(features['region'].isin(top_30_regions), 'other')
+
         return events, features
 
     def fit_transform(self, events, features):

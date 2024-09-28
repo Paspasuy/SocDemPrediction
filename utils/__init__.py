@@ -7,3 +7,5 @@ from utils.extractors.simple_statistics_extractor import SimpleStatisticsExtract
 from utils.extractors.main_extractor import MainFeatureExtractor
 
 from utils.extractors.geo_extractor import GeoFeatureExtractor
+
+from utils.extractors.user_extractor import UserFeatureExtractor
