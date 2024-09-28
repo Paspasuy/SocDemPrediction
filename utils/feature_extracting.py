@@ -15,22 +15,25 @@ class Imputer:
     def fit(self):
         pass
 
-    def transform(self, data, video, targets):
-        data = data.copy()
+    def transform(self, events, video, features):
+        events = events.copy()
         video = video.copy()
-        targets = targets.copy()
+        features = features.copy()
 
         video['duration_sec'] = video['duration'] // 1000
-        targets['sex'] = targets['sex'].apply(lambda x: 0 if x == 'male' else 1)
+        features['sex'] = features['sex'].apply(lambda x: 0 if x == 'male' else 1)
         # Оставляем только локальное время без таймзоны
-        data = add_tz_and_localtime_column(data)
-        data = data.drop('timezone', axis=1)
-        data = data.drop('event_timestamp', axis=1)
+        events = add_tz_and_localtime_column(events)
+        events = events.drop('timezone', axis=1)
+        events = events.drop('event_timestamp', axis=1)
         # Удаляем ненужный префикс video_
-        data["rutube_video_id"].apply(lambda s: s[6:])
-        video["rutube_video_id"].apply(lambda s: s[6:])
+        events["rutube_video_id"] = events["rutube_video_id"].apply(lambda s: s[6:])
+        video["rutube_video_id"] = video["rutube_video_id"].apply(lambda s: s[6:])
 
-        return data, video, targets
+        # Мержим с информацией о роликах
+        events = pd.merge(events, video, on='rutube_video_id', how='inner')
+
+        return events, features
 
     def fit_transform(self, data, video, targets):
         self.fit()
@@ -44,26 +47,24 @@ class FeatureExtractor:
     def __init__(self):
         self.user_embed = None
 
-    def fit(self):
+    def fit(self, events, features):
         self.user_embed = pd.read_parquet(path.parent / 'personal' / 'knifeman' / 'data' / 'target_embeds-custom_aggregation.parquet')
 
-    def transform(self, data, video, targets):
-        data = data.copy()
-        video = video.copy()
-        targets = targets.copy()
+    def transform(self, events, features):
+        events = events.copy()
+        features = features.copy()
 
-        data = pd.merge(data, video[['rutube_video_id', 'category']], on='rutube_video_id', how='inner')
-        users_cats = data.groupby('viewer_uid').agg(
+        users_cats = events.groupby('viewer_uid').agg(
             favourite_cat=('category', lambda x: x.value_counts().idxmax()),
             percent_fav_cat=('category', lambda x: x.value_counts().max() / len(x))
         )
         # Add user embeddings from .parquet file
         users_cats = pd.merge(users_cats, self.user_embed, on='viewer_uid', how='inner')
 
-        targets = pd.merge(users_cats, targets, on='viewer_uid', how='inner')
+        features = pd.merge(users_cats, features, on='viewer_uid', how='inner')
 
-        return data, video, targets
+        return events, features
 
-    def fit_transform(self, data, video, targets):
-        self.fit()
-        return self.transform(data, video, targets)
+    def fit_transform(self, events, features):
+        self.fit(events, features)
+        return self.transform(events, features)
