@@ -16,7 +16,7 @@
 14,Tatarstan Republic,Europe/Moscow
 15,Belgorod Oblast,Europe/Moscow
 16,Kuzbass,Asia/Novokuznetsk
-17,Udmurtiya Republic,Etc/GMT+4
+17,Udmurtiya Republic,Asia/Yekaterinburg
 18,Chuvashia,Europe/Moscow
 19,Ryazan Oblast,Europe/Moscow
 20,Perm Krai,Asia/Yekaterinburg
@@ -33,7 +33,7 @@
 31,Smolensk Oblast,Europe/Moscow
 32,Tambov Oblast,Europe/Moscow
 33,Novgorod Oblast,Europe/Moscow
-34,Khakasiya Republic,Etc/GMT+7
+34,Khakasiya Republic,Asia/Irkutsk
 35,Ulyanovsk,Europe/Ulyanovsk
 36,Volgograd Oblast,Europe/Volgograd
 37,Irkutsk Oblast,Asia/Irkutsk
@@ -73,14 +73,14 @@
 71,Pskov Oblast,Europe/Moscow
 72,Crimea,Europe/Simferopol
 73,Chechnya,Europe/Moscow
-74,Saratovskaya Oblast,Etc/GMT+4
-75,Kalmykiya Republic,Etc/GMT+3
+74,Saratovskaya Oblast,Asia/Yekaterinburg
+75,Kalmykiya Republic,Europe/Moscow
 76,North Ossetia–Alania,Europe/Moscow
 77,Vologda Oblast,Europe/Moscow
-78,Karachayevo-Cherkesiya Republic,Etc/GMT+3
+78,Karachayevo-Cherkesiya Republic,Europe/Moscow
 79,Voronezj,Europe/Moscow
 80,Chukotka,Asia/Anadyr
-81,Mordoviya Republic,Etc/GMT+3
+81,Mordoviya Republic,Europe/Moscow
 82,Kostroma Oblast,Europe/Moscow
 83,Yamalo-Nenets,Asia/Yekaterinburg
 84,Magadan Oblast,Asia/Magadan
@@ -92,7 +92,7 @@
 90,Kabardino-Balkariya Republic,Europe/Moscow
 91,Jaroslavl,Europe/Moscow
 92,Sakhalin Oblast,Asia/Sakhalin
-93,Sebastopol City,Etc/GMT+3
+93,Sebastopol City,Europe/Moscow
 94,Tyumen’ Oblast,Asia/Yekaterinburg
 95,Kirov,Europe/Kirov
 96,Orel Oblast,Europe/Moscow
@@ -101,17 +101,17 @@
 99,Nenets,Asia/Yekaterinburg
 100,Tver’ Oblast,Europe/Moscow
 101,Jewish Autonomous Oblast,Asia/Vladivostok
-102,Ingushetiya Republic,Etc/GMT+3
+102,Ingushetiya Republic,Europe/Moscow
 103,Kaluga,Europe/Moscow
 104,Kaliningrad,Europe/Kaliningrad
 105,North Ossetia,Europe/Moscow
 106,Perm,Asia/Yekaterinburg
 107,Smolensk,Europe/Moscow
-108,Primorskiy (Maritime) Kray,Etc/GMT+10
+108,Primorskiy (Maritime) Kray,Asia/Yakutsk
 109,Vologda,Europe/Moscow
 110,Stavropol Krai,Europe/Moscow
 111,Astrakhan,Europe/Astrakhan
-112,Transbaikal Territory,Etc/GMT+9
+112,Transbaikal Territory,Asia/Yakutsk
 113,Tambov,Europe/Moscow
 114,Tyva Republic,Asia/Krasnoyarsk
 115,Arkhangelsk Oblast,Europe/Moscow

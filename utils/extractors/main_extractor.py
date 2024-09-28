@@ -17,7 +17,6 @@ class MainFeatureExtractor:
         self.user_embed = pd.read_parquet(path.parent.parent / 'personal' / 'knifeman' / 'data' / 'target_embeds-custom_aggregation.parquet')
 
     def transform(self, events, features):
-        events = events.copy()
         features = features.copy()
 
         users_cats = events.groupby('viewer_uid').agg(
