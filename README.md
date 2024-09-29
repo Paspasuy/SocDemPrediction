@@ -30,6 +30,8 @@
 
 Эмбеддинги считаются с помощью [work_with_text.py.ipynb](personal/knifeman/work_with_text.py), перед этим загрузив модели, используя [download_embedding_models.py](download_embedding_models.py)
 
+Catboost запускается с помощью [main_catboost.ipynb](main_catboost.ipynb)
+
 ## Что еще пробовали
 
 Пробовали кучу способов обрабатывать текст, ничего, кроме эмбеддингов, не дало свои плоды: [video_embeddings.ipynb](personal/knifeman/video_embeddings.ipynb)
