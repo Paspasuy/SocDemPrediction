@@ -23,13 +23,16 @@
 
 ## Анализ точности в зависимости от длины истории
 
+Мы учили логистическую регрессию на эмбеддингах заголовков видео, а затем сравнивали предсказание на тесте для группы людей, у которых хотя бы n видео в истории. Результаты: [f1-score.png](personal/knifeman/data/f1-score.png) [acc.png](personal/knifeman/data/acc.png)
+Метрики стабильно растут где-то на 2%
+
 ## Как запустить
 
-## Инсайты полученные при анализе
+Эмбеддинги считаются с помощью [work_with_text.py.ipynb](personal/knifeman/work_with_text.py), перед этим загрузив модели, используя [download_embedding_models.py](download_embedding_models.py)
 
 ## Что еще пробовали
 
-Пробовали кучу способов обрабатывать текст, ничего, кроме эмбеддингов, не дало свои плоды: personal/knifeman/video_embeddings.ipynb
+Пробовали кучу способов обрабатывать текст, ничего, кроме эмбеддингов, не дало свои плоды: [video_embeddings.ipynb](personal/knifeman/video_embeddings.ipynb)
 
 ## 
 
