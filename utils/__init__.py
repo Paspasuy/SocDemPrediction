@@ -7,6 +7,7 @@ from utils.extractors.main_extractor import MainFeatureExtractor
 from utils.extractors.geo_extractor import GeoFeatureExtractor
 from utils.extractors.user_extractor import UserFeatureExtractor
 from utils.extractors.target_encoding_extractor import TargetEncodingExtractor
+from utils.extractors.target_encoding_extractor_sex import TargetEncodingExtractorSex
 from utils.extractors.bow_extractor import BagOfWordsExtractor
 from utils.extractors.als_embedding_extractor import ALSEmbeddingExtractor
 
