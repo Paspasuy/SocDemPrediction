@@ -19,6 +19,7 @@ class UserFeatureExtractor:
     Добавляет фичи
     - has_{os}: есть ли у человека устройство с такой OS
     - has_app_installed: есть ли мобильное приложение
+    - uses_{browser}: есть ли у человека определенный браузер
     - region_count: сколько регионов посещал
     """
 
@@ -42,6 +43,13 @@ class UserFeatureExtractor:
         travel_count = events.groupby('viewer_uid').agg(
             travel_count = ('region', lambda x: int(x.nunique()))
         )
+        
+        browsers = ['Chrome', 'Safari', 'Yandex', 'Firefox', 'Opera', 'Edge', 'Samsung', 'Atom']
+        for browser in browsers:
+            has_browser = events.groupby('viewer_uid').agg(
+                **{f'uses_{browser.lower()}': ('ua_client_name', lambda x: int(x.str.contains(browser).sum() > 0))}
+            )
+            features = pd.merge(has_browser, features, on='viewer_uid', how='inner')
 
         features = pd.merge(has_devices, features, on='viewer_uid', how='inner')
         features = pd.merge(has_other, features, on='viewer_uid', how='inner')
