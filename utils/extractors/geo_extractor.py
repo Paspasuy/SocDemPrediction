@@ -42,5 +42,6 @@ class GeoFeatureExtractor:
         return events, features
 
     def fit_transform(self, events, features):
+        print('Applying GeoFeatureExtractor...')
         self.fit()
         return self.transform(events, features)

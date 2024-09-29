@@ -59,5 +59,6 @@ class UserFeatureExtractor:
         return events, features
 
     def fit_transform(self, events, features):
+        print('Applying UserFeatureExtractor...')
         self.fit()
         return self.transform(events, features)

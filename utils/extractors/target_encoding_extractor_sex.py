@@ -30,7 +30,7 @@ class TargetEncodingExtractorSex:
         :return:
         """
         with_targets = pd.merge(events_train, features_train[['sex', 'viewer_uid']], on='viewer_uid', how='left')
-
+        print(with_targets.head())
         self.authors_mean = with_targets.groupby('author_id').agg(
             authors_mean=('sex', 'mean'),
         )
