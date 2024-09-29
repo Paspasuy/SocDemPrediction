@@ -112,7 +112,7 @@ class TargetEncodingExtractor:
         users_cats_vid = users_cats_vid.div(users_cats_vid.sum(axis=1), axis=0)
 
 
-        features_test = pd.merge(users_cats_auth, features_test, on='viewer_uid', how='inner').fillna(0)
-        features_test = pd.merge(users_cats_vid, features_test, on='viewer_uid', how='inner').fillna(0)
+        features_test = pd.merge(features_test, users_cats_auth, on='viewer_uid', how='inner').fillna(0)
+        features_test = pd.merge(features_test, users_cats_vid, on='viewer_uid', how='inner').fillna(0)
 
         return features_test

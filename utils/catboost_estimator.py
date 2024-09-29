@@ -35,17 +35,17 @@ class CatboostEstimator:
             val_idx.name = 'viewer_uid'
             X_val['viewer_uid'] = val_idx
             if y.name == 'age_class':
-                target_enc_ext = utils.TargetEncodingExtractor()
+                self.target_enc_ext = utils.TargetEncodingExtractor()
             else:
-                target_enc_ext = utils.TargetEncodingExtractorSex()
+                self.target_enc_ext = utils.TargetEncodingExtractorSex()
             events_filtered_train = pd.merge(events, train_idx, on='viewer_uid', how='inner')
-            target_enc_ext.fit(events_filtered_train, pd.merge(X_train, y_train_idx, on='viewer_uid', how='inner'))
+            self.target_enc_ext.fit(events_filtered_train, pd.merge(X_train, y_train_idx, on='viewer_uid', how='inner'))
             events_filtered_test = pd.merge(events, val_idx, on='viewer_uid', how='inner')
 
-            X_train = target_enc_ext.transform(events_filtered_train, X_train).drop(columns=['viewer_uid'])
-            X_val = target_enc_ext.transform(events_filtered_test, X_val).drop(columns=['viewer_uid'])
+            X_train = self.target_enc_ext.transform(events_filtered_train, X_train).drop(columns=['viewer_uid'])
+            X_val = self.target_enc_ext.transform(events_filtered_test, X_val).drop(columns=['viewer_uid'])
 
-            model = CatBoostClassifier(cat_features=cat_features, verbose=500, iterations=1000, depth=8, l2_leaf_reg=1.969)
+            model = CatBoostClassifier(cat_features=cat_features, verbose=500, iterations=10, depth=8, l2_leaf_reg=1.969)
             model.fit(X_train, y_train, verbose=500, eval_set=(X_val, y_val))
 
             self.models.append(model)
@@ -71,26 +71,29 @@ class CatboostEstimator:
         X_train, X_val, y_train, y_val = train_test_split(X, y, test_size=0.2, random_state=42)
 
         if y.name == 'age_class':
-            target_enc_ext = utils.TargetEncodingExtractor()
+            self.target_enc_ext = utils.TargetEncodingExtractor()
         else:
-            target_enc_ext = utils.TargetEncodingExtractorSex()
+            self.target_enc_ext = utils.TargetEncodingExtractorSex()
         events_filtered_train = pd.merge(events, y_train, on='viewer_uid', how='inner').drop(columns=[y.name])
         events_filtered_test = pd.merge(events, y_val, on='viewer_uid', how='inner').drop(columns=[y.name])
 
-        target_enc_ext.fit(events_filtered_train, pd.merge(X_train, y_train, on='viewer_uid', how='inner'))
+        self.target_enc_ext.fit(events_filtered_train, pd.merge(X_train, y_train, on='viewer_uid', how='inner'))
 
-        X_train = target_enc_ext.transform(events_filtered_train, X_train).drop(columns=['viewer_uid'])
-        X_val = target_enc_ext.transform(events_filtered_test, X_val).drop(columns=['viewer_uid'])
+        X_train = self.target_enc_ext.transform(events_filtered_train, X_train).drop(columns=['viewer_uid'])
+        X_val = self.target_enc_ext.transform(events_filtered_test, X_val).drop(columns=['viewer_uid'])
         y_train = y_train.drop(columns=['viewer_uid'])
         y_val = y_val.drop(columns=['viewer_uid'])
 
-        self.model = CatBoostClassifier(cat_features=cat_features, verbose=150, iterations=2000, depth=8, l2_leaf_reg=1.969)
+        self.model = CatBoostClassifier(cat_features=cat_features, verbose=150, iterations=10, depth=8, l2_leaf_reg=1.969)
 
         self.model.select_features(X_train, y_train, verbose=500, eval_set=(X_val, y_val), steps=10,
                                    num_features_to_select=30, features_for_select=X_val.columns,
                                    algorithm='RecursiveByLossFunctionChange', train_final_model=True)
 
-    def predict(self, X, cnt_classes):
+    def predict(self, X, events, cnt_classes):
+        X = self.target_enc_ext.transform(events, X).fillna(0)
+        print(X.info())
+        print((X == -1).sum(axis=0))
         if self.one_model:
             return self.model.predict_proba(X)
 
