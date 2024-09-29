@@ -8,5 +8,6 @@ from utils.extractors.geo_extractor import GeoFeatureExtractor
 from utils.extractors.user_extractor import UserFeatureExtractor
 from utils.extractors.target_encoding_extractor import TargetEncodingExtractor
 from utils.extractors.bow_extractor import BagOfWordsExtractor
+from utils.extractors.als_embedding_extractor import ALSEmbeddingExtractor
 
 from utils.text_processing import preprocess_text, get_top_words
