@@ -43,7 +43,7 @@ class TargetEncodingExtractor:
         events_test = events_test.copy()
         features_test = features_test.copy()
 
-        user_duration_sum = even    ts_test.groupby('viewer_uid').agg(
+        user_duration_sum = events_test.groupby('viewer_uid').agg(
             user_duration_sum=('duration_sec', 'sum'),
         )
         events_with_sum = pd.merge(events_test, user_duration_sum, on='viewer_uid', how='left')
