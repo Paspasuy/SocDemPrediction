@@ -11,6 +11,10 @@ class SimpleStatisticsExtractor:
     percent_watched_{avg, max, min, std}
     duration_{avg, max, min, std}
     
+    percent_skipped - доля пропущенных видео (где percent_watched < 0.1)
+    percent_completed - доля полностью просмотренных видео (где percent_watched > 0.95)
+    percent_rewatched - доля пересмотренных видео (где percent_watched > 1.1)
+    
     hour_x - доля активности в часе x
     day_x - доля активности в дне x
     
@@ -40,6 +44,19 @@ class SimpleStatisticsExtractor:
         percent_watched = events.groupby('viewer_uid')['percent_watched'].agg(['mean', 'max', 'min', 'std'])
         percent_watched.columns = [f'percent_watched_{col}' for col in percent_watched.columns]
         features = features.merge(percent_watched, on='viewer_uid', how='left')
+        
+        events['watched'] = events['percent_watched'] > 0.95
+        events['skipped'] = events['percent_watched'] < 0.1
+        events['rewatched'] = events['percent_watched'] > 1.1
+        percent_skipped = events.groupby('viewer_uid')['skipped'].mean()
+        percent_skipped.name = 'percent_skipped'
+        percent_completed = events.groupby('viewer_uid')['watched'].mean()
+        percent_completed.name = 'percent_completed'
+        percent_rewatched = events.groupby('viewer_uid')['rewatched'].mean()
+        percent_rewatched.name = 'percent_rewatched'
+        features = features.merge(percent_skipped, on='viewer_uid', how='left')
+        features = features.merge(percent_completed, on='viewer_uid', how='left')
+        features = features.merge(percent_rewatched, on='viewer_uid', how='left')
         
         duration = events.groupby('viewer_uid')['duration'].agg(['mean', 'max', 'min', 'std'])
         duration.columns = [f'duration_{col}' for col in duration.columns]

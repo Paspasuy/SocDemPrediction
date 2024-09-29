@@ -36,5 +36,6 @@ class Imputer:
         return events, features
 
     def fit_transform(self, data, video, targets):
+        print('Applying Imputer...')
         self.fit()
         return self.transform(data, video, targets)

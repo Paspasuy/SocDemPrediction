@@ -31,5 +31,6 @@ class MainFeatureExtractor:
         return events, features
 
     def fit_transform(self, events, features):
+        print('Applying MainFeatureExtractor...')
         self.fit(events, features)
         return self.transform(events, features)
