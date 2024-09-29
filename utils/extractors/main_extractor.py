@@ -14,7 +14,7 @@ class MainFeatureExtractor:
         self.user_embed = None
 
     def fit(self, events, features):
-        self.user_embed = pd.read_parquet(path.parent.parent / 'personal' / 'knifeman' / 'data' / 'target_embeds-custom_aggregation.parquet')
+        self.user_embed = pd.read_parquet(path.parent.parent / 'personal' / 'knifeman' / 'data' / 'embeds_32_v2.parquet')
 
     def transform(self, events, features):
         features = features.copy()
