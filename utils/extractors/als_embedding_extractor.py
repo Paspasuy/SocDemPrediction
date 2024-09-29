@@ -8,7 +8,7 @@ class ALSEmbeddingExtractor:
     """
     Класс для добавления фич
 
-    Добавляет эмбеддинги пользователей полученные из ALS в ноутуке als.ipynb
+    Добавляет эмбеддинги пользователей полученные из ALS в ноутбуке als.ipynb
     """
     def __init__(self):
         self.user_embed = None

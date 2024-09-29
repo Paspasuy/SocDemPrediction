@@ -27,6 +27,7 @@ class UserFeatureExtractor:
         pass
 
     def transform(self, events, features):
+        print('Applying UserFeatureExtractor...')
         devices = ['Android', 'Windows', 'Mac', 'iOS', 'iPadOS']
         has_devices = events.groupby('viewer_uid').agg(
             **{f'has_{device.lower()}': ('ua_os', _get_get_dev(device)) for device in devices}
@@ -59,6 +60,5 @@ class UserFeatureExtractor:
         return events, features
 
     def fit_transform(self, events, features):
-        print('Applying UserFeatureExtractor...')
         self.fit()
         return self.transform(events, features)

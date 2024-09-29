@@ -17,6 +17,7 @@ class MainFeatureExtractor:
         self.user_embed = pd.read_parquet(path.parent.parent / 'personal' / 'knifeman' / 'data' / 'embeds_32_v2.parquet')
 
     def transform(self, events, features):
+        print('Applying MainFeatureExtractor...')
         features = features.copy()
 
         users_cats = events.groupby('viewer_uid').agg(
@@ -31,6 +32,5 @@ class MainFeatureExtractor:
         return events, features
 
     def fit_transform(self, events, features):
-        print('Applying MainFeatureExtractor...')
         self.fit(events, features)
         return self.transform(events, features)

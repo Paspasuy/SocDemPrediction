@@ -18,6 +18,7 @@ class GeoFeatureExtractor:
         pass
 
     def transform(self, events, features):
+        print('Applying GeoFeatureExtractor...')
         new_features = events.groupby('viewer_uid').agg(
             utc_delta=('utc_delta', lambda x: x.value_counts().idxmax()),
         )
@@ -42,6 +43,5 @@ class GeoFeatureExtractor:
         return events, features
 
     def fit_transform(self, events, features):
-        print('Applying GeoFeatureExtractor...')
         self.fit()
         return self.transform(events, features)
