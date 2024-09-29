@@ -29,7 +29,7 @@ events, features = Imputer().fit_transform(data_start, video_start, targets_star
 
 # TODO: Generate ALS embeddings and save
 
-for extractor in [MainFeatureExtractor(), ALSEmbeddingExtractor(), BagOfWordsExtractor(), SimpleStatisticsExtractor(), GeoFeatureExtractor(), UserFeatureExtractor()]:
+for extractor in [MainFeatureExtractor()]:#, ALSEmbeddingExtractor(), BagOfWordsExtractor(), SimpleStatisticsExtractor(), GeoFeatureExtractor(), UserFeatureExtractor()]:
     events, features = extractor.fit_transform(events, features)
 
 print("Features were extracted")
@@ -38,7 +38,6 @@ cat_features = []
 for i, col in enumerate(features.columns):
     if features[col].dtype in ['object', 'category']:
         cat_features.append(col)
-
 
 catboost_sex = CatboostEstimator()
 catboost_age = CatboostEstimator()
@@ -50,7 +49,8 @@ features_to_drop = [
 target_sex = 'sex'
 target_age = 'age_class'
 
-
+ids = features.reset_index()['viewer_uid']
+ids.name = 'viewer_uid'
 y_sex = features.reset_index()[[target_sex, 'viewer_uid']]
 y_sex.name = target_sex
 
@@ -59,22 +59,41 @@ y_age.name = target_age
 
 print('Sex model\n')
 
-catboost_sex.fit_with_features_selection(
-    X=features.drop(columns=features_to_drop + [target_sex] + [target_age]),
+X = features.drop(columns=features_to_drop + [target_sex] + [target_age])
+
+# catboost_sex.fit_with_features_selection(
+#     X=X,
+#     y=y_sex,
+#     events=events,
+#     cat_features=cat_features,
+# )
+catboost_sex.fit(
+    X=X,
     y=y_sex,
+    ids=ids,
     events=events,
+    n_splits=2,
     cat_features=cat_features,
+    score=score_sex,
 )
 
-catboost_sex.model.save_model('catboost_sex')
+# catboost_sex.model.save_model('catboost_sex')
+
+predict_events = pd.merge(events, X, on='viewer_uid', how='inner')#.drop(columns=['sex'])
+print("AASKDJLSKJALKFJALKDJSALKFDJSLKFJSLK")
+print(catboost_sex.predict(features.drop(columns=features_to_drop + [target_sex] + [target_age]), predict_events, 2))
+
 
 print('\n\n\nAge model\n')
-
+X = features.drop(columns=features_to_drop + [target_sex] + [target_age])
 catboost_age.fit_with_features_selection(
-    X=features.drop(columns=features_to_drop + [target_sex] + [target_age]),
+    X=X,
     y=y_age,
     events=events,
     cat_features=cat_features,
 )
 
 catboost_age.model.save_model('catboost_age')
+
+predict_events = pd.merge(events, features, on='viewer_uid', how='inner')#.drop(columns=['age_class'])
+print(catboost_age.predict(features.drop(columns=features_to_drop + [target_sex] + [target_age]), predict_events, 4))

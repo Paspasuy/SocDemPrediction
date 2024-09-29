@@ -80,9 +80,8 @@ class TargetEncodingExtractorSex:
 
         events_test = pd.merge(events_test, self.authors_mean, on='author_id', how='left')
         events_test = pd.merge(events_test, self.videos_mean, on='rutube_video_id', how='left')
-        events_test['authors_mean'] = events_test['authors_mean'] * events_test['event_weight']
-        events_test['videos_mean'] = events_test['videos_mean'] * events_test['event_weight']
-        events_test = events_test.fillna(-1)
+        events_test['authors_mean'] = (events_test['authors_mean'] * events_test['event_weight']).fillna(-1)
+        events_test['videos_mean'] = (events_test['videos_mean'] * events_test['event_weight']).fillna(-1)
 
 
         users_cats = events_test.groupby('viewer_uid').agg(
